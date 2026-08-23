@@ -25,6 +25,13 @@
 	]);
 
 	let terminalContainer: HTMLDivElement | undefined = $state();
+	let inputElement: HTMLInputElement | undefined = $state();
+
+	$effect(() => {
+		if (isOpen && inputElement) {
+			setTimeout(() => inputElement?.focus(), 50);
+		}
+	});
 
 	function executeCommand(cmd: string) {
 		const cleanCmd = cmd.trim().toLowerCase();
@@ -83,24 +90,38 @@
 			onClose();
 		}
 	}
+
+	function handleBackdropClick(e: MouseEvent) {
+		if (e.target === e.currentTarget) {
+			onClose();
+		}
+	}
 </script>
 
 {#if isOpen}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+	<div
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="terminal-modal-title"
+		onclick={handleBackdropClick}
+		onkeydown={handleKeyDown}
+		tabindex="-1"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm focus:outline-none"
+	>
 		<div class="relative w-full max-w-3xl overflow-hidden rounded-xl border border-[#00F0FF]/40 bg-[#0B0F19] shadow-2xl glow-cyan">
 			<!-- Terminal Header -->
 			<div class="flex items-center justify-between border-b border-[#1F293D] bg-[#121826] px-4 py-3">
 				<div class="flex items-center gap-2">
 					<div class="flex gap-1.5">
-						<button type="button" onclick={onClose} class="h-3 w-3 rounded-full bg-rose-500 hover:opacity-80" aria-label="Close modal"></button>
-						<div class="h-3 w-3 rounded-full bg-amber-500"></div>
-						<div class="h-3 w-3 rounded-full bg-emerald-500"></div>
+						<button type="button" onclick={onClose} class="h-3.5 w-3.5 rounded-full bg-rose-500 hover:opacity-80" aria-label="Close modal"></button>
+						<div class="h-3.5 w-3.5 rounded-full bg-amber-500"></div>
+						<div class="h-3.5 w-3.5 rounded-full bg-emerald-500"></div>
 					</div>
-					<span class="ml-2 font-mono text-xs text-slate-300">
+					<span id="terminal-modal-title" class="ml-2 font-mono text-xs text-slate-300">
 						[DCT CLI v2.5] - bash@devsafe:~
 					</span>
 				</div>
-				<button type="button" onclick={onClose} class="text-slate-400 hover:text-white" aria-label="Close button">
+				<button type="button" onclick={onClose} class="text-slate-400 hover:text-white p-1" aria-label="Close terminal dialog">
 					<X class="h-4 w-4" />
 				</button>
 			</div>
@@ -108,32 +129,36 @@
 			<!-- Terminal Output Area -->
 			<div
 				bind:this={terminalContainer}
+				role="region"
+				tabindex="0"
+				aria-label="Terminal output log"
 				class="h-[380px] overflow-y-auto p-4 font-mono text-xs text-slate-300 scanline"
 			>
 				<div class="mb-4 text-[#00F0FF]">
 					Welcome to Mr. DCT Terminal Interface.<br />
-					Type <span class="underline">help</span> or click command buttons below.
+					Type <span class="underline font-bold">help</span> or click command buttons below.
 				</div>
 
 				{#each history as item}
 					<div class="mb-3">
 						<div class="flex items-center gap-2 text-[#00FF9D]">
 							<span>dct@devsafe:~$</span>
-							<span class="text-white">{item.command}</span>
+							<span class="text-white font-bold">{item.command}</span>
 						</div>
-						<pre class="mt-1 whitespace-pre-wrap font-mono text-slate-300">{item.output}</pre>
+						<pre class="mt-1 whitespace-pre-wrap font-mono text-slate-200">{item.output}</pre>
 					</div>
 				{/each}
 			</div>
 
 			<!-- Preset Quick Command Buttons -->
-			<div class="flex flex-wrap items-center gap-2 border-t border-[#1F293D] bg-[#0E1424] px-4 py-2 text-xs">
-				<span class="font-mono text-[11px] text-slate-400">Quick Commands:</span>
+			<div class="flex flex-wrap items-center gap-2 border-t border-[#1F293D] bg-[#0E1424] px-4 py-2.5 text-xs">
+				<span class="font-mono text-[11px] text-slate-400 font-semibold">Quick Commands:</span>
 				{#each ['whoami', 'projects', 'skills', 'achievements', 'contact', 'clear'] as cmd}
 					<button
 						type="button"
 						onclick={() => executeCommand(cmd)}
-						class="rounded bg-[#1A2338] px-2 py-1 font-mono text-[11px] text-[#00F0FF] hover:bg-[#00F0FF]/20 hover:text-white"
+						class="rounded bg-[#1A2338] px-2.5 py-1.5 font-mono text-xs text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black transition-colors focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+						aria-label={`Run ${cmd} command`}
 					>
 						{cmd}
 					</button>
@@ -142,18 +167,22 @@
 
 			<!-- Input Line -->
 			<div class="flex items-center gap-2 border-t border-[#1F293D] bg-[#121826] px-4 py-3">
-				<span class="font-mono text-xs font-bold text-[#00FF9D]">dct@devsafe:~$</span>
+				<label for="cli-input-field" class="font-mono text-xs font-bold text-[#00FF9D]">dct@devsafe:~$</label>
 				<input
+					id="cli-input-field"
 					type="text"
+					bind:this={inputElement}
 					bind:value={commandInput}
 					onkeydown={handleKeyDown}
 					placeholder="type command (e.g. projects, skills, contact)..."
 					class="flex-1 bg-transparent font-mono text-xs text-white placeholder-slate-500 focus:outline-none"
+					aria-label="CLI Command Input"
 				/>
 				<button
 					type="button"
 					onclick={() => executeCommand(commandInput)}
-					class="rounded bg-[#00F0FF]/20 px-2.5 py-1 text-xs font-mono text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black"
+					class="rounded bg-[#00F0FF]/20 px-3 py-1.5 text-xs font-mono text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black transition-colors"
+					aria-label="Execute command"
 				>
 					<CornerDownLeft class="h-3.5 w-3.5" />
 				</button>
@@ -161,3 +190,4 @@
 		</div>
 	</div>
 {/if}
+

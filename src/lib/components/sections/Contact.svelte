@@ -42,7 +42,7 @@
 			<h2 class="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl font-sans">
 				Get In <span class="text-[#00F0FF]">Touch</span>
 			</h2>
-			<p class="mt-2 text-xs font-mono text-slate-400 max-w-2xl">
+			<p class="mt-2 text-xs font-mono text-slate-300 max-w-2xl">
 				Looking to discuss a software project, hackathon collaboration, security audit, or speaking engagement? Reach out directly.
 			</p>
 		</div>
@@ -58,7 +58,7 @@
 					<div class="space-y-4">
 						<!-- Email -->
 						<div class="rounded-xl border border-[#1F293D] bg-[#121826] p-4">
-							<div class="text-xs font-mono text-slate-400 mb-1">Direct Email:</div>
+							<div class="text-xs font-mono text-slate-300 mb-1">Direct Email:</div>
 							<div class="flex items-center justify-between gap-2">
 								<span class="font-mono text-sm font-semibold text-white break-all">
 									{profile.contactEmail}
@@ -68,15 +68,15 @@
 						</div>
 
 						<!-- Location & Base -->
-						<div class="rounded-xl border border-[#1F293D] bg-[#121826] p-4 font-mono text-xs text-slate-300">
-							<div class="text-slate-400 mb-1">Base of Operations:</div>
+						<div class="rounded-xl border border-[#1F293D] bg-[#121826] p-4 font-mono text-xs text-slate-200">
+							<div class="text-slate-300 mb-1">Base of Operations:</div>
 							<div class="font-bold text-white">{profile.location}</div>
 						</div>
 					</div>
 
 					<!-- Social Hub -->
 					<div>
-						<div class="font-mono text-xs text-slate-400 uppercase tracking-wider mb-3">
+						<div class="font-mono text-xs text-slate-300 uppercase tracking-wider mb-3">
 							[ ONLINE PRESENCE & REPOS ]:
 						</div>
 						<div class="flex flex-col gap-2 font-mono text-xs">
@@ -85,17 +85,17 @@
 									href={social.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="flex items-center justify-between rounded-lg border border-[#1F293D] bg-[#121826] p-3 text-slate-300 transition-colors hover:border-[#00F0FF] hover:text-[#00F0FF]"
+									class="flex items-center justify-between rounded-lg border border-[#1F293D] bg-[#121826] p-3 text-slate-200 transition-colors hover:border-[#00F0FF] hover:text-[#00F0FF] focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
 								>
 									<span class="font-bold">{social.label}</span>
-									<span class="text-slate-400 text-[11px]">{social.description}</span>
+									<span class="text-slate-300 text-[11px]">{social.description}</span>
 								</a>
 							{/each}
 						</div>
 					</div>
 				</div>
 
-				<div class="pt-4 border-t border-[#1F293D] font-mono text-xs text-slate-500">
+				<div class="pt-4 border-t border-[#1F293D] font-mono text-xs text-slate-400">
 					Status: Available for technical lead & security consulting roles.
 				</div>
 			</div>
@@ -106,77 +106,80 @@
 					[ TRANSMIT MESSAGE ]
 				</h3>
 
-				{#if isSubmitted}
-					<div class="flex items-center gap-3 rounded-xl border border-[#00FF9D]/40 bg-[#00FF9D]/10 p-4 text-xs font-mono text-[#00FF9D]">
-						<CheckCircle2 class="h-5 w-5 flex-shrink-0" />
-						<span>Message transmitted successfully! Mr. DCT will respond shortly.</span>
-					</div>
-				{:else}
-					<form onsubmit={handleSubmit} class="space-y-4 font-sans text-xs">
-						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+				<div aria-live="polite" aria-atomic="true">
+					{#if isSubmitted}
+						<div class="flex items-center gap-3 rounded-xl border border-[#00FF9D]/40 bg-[#00FF9D]/10 p-4 text-xs font-mono text-[#00FF9D]">
+							<CheckCircle2 class="h-5 w-5 flex-shrink-0" />
+							<span>Message transmitted successfully! Mr. DCT will respond shortly.</span>
+						</div>
+					{:else}
+						<form onsubmit={handleSubmit} class="space-y-4 font-sans text-xs">
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+								<div>
+									<label for="contact-name" class="block font-mono text-xs text-slate-200 font-medium mb-1">Your Name *</label>
+									<input
+										id="contact-name"
+										type="text"
+										required
+										bind:value={formName}
+										placeholder="e.g. Alex Johnson"
+										class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-400 focus:border-[#00F0FF] focus:outline-none font-mono text-xs focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+									/>
+								</div>
+
+								<div>
+									<label for="contact-email" class="block font-mono text-xs text-slate-200 font-medium mb-1">Your Email *</label>
+									<input
+										id="contact-email"
+										type="email"
+										required
+										bind:value={formEmail}
+										placeholder="alex@company.com"
+										class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-400 focus:border-[#00F0FF] focus:outline-none font-mono text-xs focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+									/>
+								</div>
+							</div>
+
 							<div>
-								<label for="contact-name" class="block font-mono text-xs text-slate-300 mb-1">Your Name *</label>
+								<label for="contact-subject" class="block font-mono text-xs text-slate-200 font-medium mb-1">Subject</label>
 								<input
-									id="contact-name"
+									id="contact-subject"
 									type="text"
-									required
-									bind:value={formName}
-									placeholder="e.g. Alex Johnson"
-									class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-500 focus:border-[#00F0FF] focus:outline-none font-mono text-xs"
+									bind:value={formSubject}
+									placeholder="Project Inquiry / Hackathon / Security Audit"
+									class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-400 focus:border-[#00F0FF] focus:outline-none font-mono text-xs focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
 								/>
 							</div>
 
 							<div>
-								<label for="contact-email" class="block font-mono text-xs text-slate-300 mb-1">Your Email *</label>
-								<input
-									id="contact-email"
-									type="email"
+								<label for="contact-message" class="block font-mono text-xs text-slate-200 font-medium mb-1">Message *</label>
+								<textarea
+									id="contact-message"
+									rows="5"
 									required
-									bind:value={formEmail}
-									placeholder="alex@company.com"
-									class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-500 focus:border-[#00F0FF] focus:outline-none font-mono text-xs"
-								/>
+									bind:value={formMessage}
+									placeholder="Share details about your request or project..."
+									class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-400 focus:border-[#00F0FF] focus:outline-none font-mono text-xs focus-visible:ring-2 focus-visible:ring-[#00F0FF]"
+								></textarea>
 							</div>
-						</div>
 
-						<div>
-							<label for="contact-subject" class="block font-mono text-xs text-slate-300 mb-1">Subject</label>
-							<input
-								id="contact-subject"
-								type="text"
-								bind:value={formSubject}
-								placeholder="Project Inquiry / Hackathon / Security Audit"
-								class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-500 focus:border-[#00F0FF] focus:outline-none font-mono text-xs"
-							/>
-						</div>
-
-						<div>
-							<label for="contact-message" class="block font-mono text-xs text-slate-300 mb-1">Message *</label>
-							<textarea
-								id="contact-message"
-								rows="5"
-								required
-								bind:value={formMessage}
-								placeholder="Share details about your request or project..."
-								class="w-full rounded-xl border border-[#1F293D] bg-[#121826] px-4 py-3 text-white placeholder-slate-500 focus:border-[#00F0FF] focus:outline-none font-mono text-xs"
-							></textarea>
-						</div>
-
-						<button
-							type="submit"
-							disabled={isSubmitting}
-							class="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00F0FF] py-3.5 font-mono text-xs font-bold text-black transition-all hover:bg-[#00FF9D] active:scale-98 disabled:opacity-50"
-						>
-							{#if isSubmitting}
-								<span>Transmitting...</span>
-							{:else}
-								<Send class="h-4 w-4" />
-								<span>Send Message</span>
-							{/if}
-						</button>
-					</form>
-				{/if}
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								class="w-full flex items-center justify-center gap-2 rounded-xl bg-[#00F0FF] py-3.5 font-mono text-xs font-bold text-black transition-all hover:bg-[#00FF9D] active:scale-98 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-white"
+							>
+								{#if isSubmitting}
+									<span>Transmitting...</span>
+								{:else}
+									<Send class="h-4 w-4" />
+									<span>Send Message</span>
+								{/if}
+							</button>
+						</form>
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
+

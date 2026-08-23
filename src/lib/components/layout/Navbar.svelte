@@ -21,7 +21,16 @@
 	function closeMobileMenu() {
 		isMobileMenuOpen = false;
 	}
+
+	function handleWindowKeydown(e: KeyboardEvent) {
+		if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+			e.preventDefault();
+			isTerminalOpen = !isTerminalOpen;
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleWindowKeydown} />
 
 <header class="sticky top-0 z-40 w-full border-b border-[#1F293D]/80 bg-[#0B0F19]/80 backdrop-blur-md">
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
@@ -41,11 +50,11 @@
 		</a>
 
 		<!-- Desktop Navigation Links -->
-		<nav class="hidden md:flex items-center gap-6">
+		<nav class="hidden md:flex items-center gap-6" aria-label="Main Navigation">
 			{#each navLinks as link}
 				<a
 					href={link.href}
-					class="font-mono text-xs text-slate-300 transition-colors hover:text-[#00F0FF]"
+					class="font-mono text-xs text-slate-300 transition-colors hover:text-[#00F0FF] focus-visible:text-[#00F0FF]"
 				>
 					{link.label}
 				</a>
@@ -59,9 +68,11 @@
 				type="button"
 				onclick={() => (isTerminalOpen = true)}
 				class="flex items-center gap-1.5 rounded-lg border border-[#00F0FF]/30 bg-[#00F0FF]/10 px-3 py-1.5 font-mono text-xs text-[#00F0FF] transition-all hover:bg-[#00F0FF]/20 hover:shadow-lg hover:shadow-[#00F0FF]/10"
+				aria-label="Open CLI Terminal (Shortcut: Ctrl+K or Cmd+K)"
 			>
 				<Terminal class="h-3.5 w-3.5" />
 				<span>[CLI]</span>
+				<kbd class="hidden lg:inline-block rounded border border-[#00F0FF]/30 bg-[#00F0FF]/10 px-1 py-0.5 text-[9px] text-[#00F0FF]">⌘K</kbd>
 			</button>
 		</div>
 
@@ -80,6 +91,8 @@
 				onclick={toggleMobileMenu}
 				class="p-2 text-slate-300 hover:text-white"
 				aria-label="Toggle Navigation Menu"
+				aria-expanded={isMobileMenuOpen}
+				aria-controls="mobile-nav-drawer"
 			>
 				{#if isMobileMenuOpen}
 					<X class="h-6 w-6" />
@@ -92,8 +105,8 @@
 
 	<!-- Mobile Menu Drawer -->
 	{#if isMobileMenuOpen}
-		<div class="border-b border-[#1F293D] bg-[#0E1424] px-4 py-4 md:hidden">
-			<nav class="flex flex-col gap-3">
+		<div id="mobile-nav-drawer" class="border-b border-[#1F293D] bg-[#0E1424] px-4 py-4 md:hidden">
+			<nav class="flex flex-col gap-3" aria-label="Mobile Navigation">
 				{#each navLinks as link}
 					<a
 						href={link.href}
@@ -123,3 +136,4 @@
 </header>
 
 <TerminalModal isOpen={isTerminalOpen} onClose={() => (isTerminalOpen = false)} />
+

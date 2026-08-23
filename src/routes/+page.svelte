@@ -14,15 +14,34 @@
 		'@context': 'https://schema.org',
 		'@type': 'Person',
 		name: profile.name,
-		alternateName: profile.handle,
-		jobTitle: 'Founder & CEO',
+		alternateName: [profile.handle, 'DeepCodeThinking'],
+		jobTitle: 'Founder & Chief Executive Officer',
 		worksFor: {
+			'@type': 'Organization',
+			name: 'DevSafe',
+			url: 'https://devsafe.cm'
+		},
+		founderOf: {
 			'@type': 'Organization',
 			name: 'DevSafe'
 		},
-		almaMater: {
+		knowsAbout: [
+			'Cybersecurity',
+			'Escrow Systems',
+			'Rust (Axum/Tonic gRPC)',
+			'SvelteKit',
+			'Flutter & Dart',
+			'Penetration Testing',
+			'Mobile Money Integration'
+		],
+		alumniOf: {
 			'@type': 'EducationalOrganization',
-			name: 'ICT University Yaoundé'
+			name: 'ICT University Yaoundé',
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: 'Yaoundé',
+				addressCountry: 'Cameroon'
+			}
 		},
 		address: {
 			'@type': 'PostalAddress',
@@ -37,17 +56,21 @@
 	<title>{profile.name} ({profile.handle}) | Founder & CEO @ DevSafe</title>
 	<meta name="description" content={profile.shortBio} />
 	<meta name="keywords" content="Verla Berinyuy Ndey, Mr. DCT, DeepCodeThinking, DevSafe, Cybersecurity, SvelteKit, Rust, Flutter, BookBridge, Eventra, Cameroon Tech" />
-	
+	<link rel="canonical" href="https://devsafe.cm" />
+
 	<!-- OpenGraph Tags -->
 	<meta property="og:title" content="{profile.name} ({profile.handle}) | Founder & CEO @ DevSafe" />
 	<meta property="og:description" content={profile.shortBio} />
 	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://devsafe.cm" />
+	<meta property="og:site_name" content="Mr. DCT Portfolio" />
 	<meta property="og:locale" content="en_US" />
 
 	<!-- Twitter Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="{profile.name} ({profile.handle}) | DevSafe Founder" />
 	<meta name="twitter:description" content={profile.shortBio} />
+	<meta name="twitter:creator" content="@DeepCodeThinking" />
 
 	<!-- JSON-LD Structured Data -->
 	{@html `<script type="application/ld+json">${jsonLd}</script>`}
@@ -55,7 +78,7 @@
 
 <Navbar />
 
-<main class="flex-1">
+<main id="main-content" class="flex-1 focus:outline-none" tabindex="-1">
 	<Hero />
 	<About />
 	<FeaturedProjects />
@@ -66,3 +89,4 @@
 </main>
 
 <Footer />
+

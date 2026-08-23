@@ -3,9 +3,19 @@
 	import SecurityBadge from '$lib/components/ui/SecurityBadge.svelte';
 	import MediaPlaceholder from '$lib/components/ui/MediaPlaceholder.svelte';
 	import SocialIcon from '$lib/components/ui/SocialIcon.svelte';
-	import { ExternalLink, Trophy, ShieldCheck, Cpu, ArrowUpRight } from 'lucide-svelte';
+	import { ExternalLink, Trophy, ShieldCheck, Cpu, ArrowUpRight, Filter } from 'lucide-svelte';
 
-	const featured = projects.filter((p) => p.category === 'featured');
+	let activeFilter = $state<'all' | 'flagship' | 'security' | 'mobile'>('all');
+
+	const filteredProjects = $derived(
+		projects.filter((p) => {
+			if (activeFilter === 'all') return true;
+			if (activeFilter === 'flagship') return p.category === 'featured';
+			if (activeFilter === 'security') return p.stack.some((s) => s.toLowerCase().includes('rust') || s.toLowerCase().includes('security') || s.toLowerCase().includes('grpc'));
+			if (activeFilter === 'mobile') return p.stack.some((s) => s.toLowerCase().includes('flutter') || s.toLowerCase().includes('dart') || s.toLowerCase().includes('sveltekit'));
+			return true;
+		})
+	);
 </script>
 
 <section id="projects" class="relative py-24 border-b border-[#1F293D] bg-[#0B0F19]">
@@ -14,19 +24,61 @@
 
 	<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<!-- Section Header -->
-		<div class="flex flex-col items-start mb-16">
-			<SecurityBadge label="THE CENTERPIECE • FEATURED SHIPPED PRODUCTS" variant="cyan" size="sm" />
-			<h2 class="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-5xl font-sans">
-				Engineering & <span class="text-[#00F0FF]">Product Showcase</span>
-			</h2>
-			<p class="mt-2 text-base font-mono text-slate-400 max-w-3xl">
-				Production platforms, live payment escrows, gRPC microservices, and startup ventures built and led by Mr. DCT.
-			</p>
+		<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+			<div class="flex flex-col items-start">
+				<SecurityBadge label="THE CENTERPIECE • FEATURED SHIPPED PRODUCTS" variant="cyan" size="sm" />
+				<h2 class="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-5xl font-sans">
+					Engineering & <span class="text-[#00F0FF]">Product Showcase</span>
+				</h2>
+				<p class="mt-2 text-base font-mono text-slate-300 max-w-2xl">
+					Production platforms, live payment escrows, gRPC microservices, and startup ventures built and led by Mr. DCT.
+				</p>
+			</div>
+
+			<!-- Filter Tabs -->
+			<div role="tablist" aria-label="Filter projects by category" class="flex flex-wrap items-center gap-2 rounded-xl border border-[#1F293D] bg-[#0E1424] p-1.5 font-mono text-xs">
+				<button
+					type="button"
+					role="tab"
+					aria-selected={activeFilter === 'all'}
+					onclick={() => (activeFilter = 'all')}
+					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'all' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+				>
+					All Builds ({projects.length})
+				</button>
+				<button
+					type="button"
+					role="tab"
+					aria-selected={activeFilter === 'flagship'}
+					onclick={() => (activeFilter = 'flagship')}
+					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'flagship' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+				>
+					DevSafe Flagships
+				</button>
+				<button
+					type="button"
+					role="tab"
+					aria-selected={activeFilter === 'security'}
+					onclick={() => (activeFilter = 'security')}
+					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'security' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+				>
+					Security & Systems
+				</button>
+				<button
+					type="button"
+					role="tab"
+					aria-selected={activeFilter === 'mobile'}
+					onclick={() => (activeFilter = 'mobile')}
+					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'mobile' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+				>
+					Mobile & Web
+				</button>
+			</div>
 		</div>
 
-		<!-- Featured Project Cards -->
+		<!-- Project Cards Grid -->
 		<div class="space-y-16">
-			{#each featured as project, index}
+			{#each filteredProjects as project, index}
 				<div class="group relative overflow-hidden rounded-2xl border border-[#1F293D] bg-[#0E1424] p-6 sm:p-8 transition-all duration-300 hover:border-[#00F0FF]/50 hover:shadow-2xl hover:shadow-[#00F0FF]/10">
 					<!-- Card Header Strip -->
 					<div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1F293D] pb-4 mb-6">
