@@ -10,17 +10,17 @@
 
 	const variantStyles = {
 		cyan: 'border-[#00F0FF]/30 bg-[#00F0FF]/10 text-[#00F0FF]',
-		mint: 'border-[#00FF9D]/30 bg-[#00FF9D]/10 text-[#00FF9D]',
-		gold: 'border-amber-400/30 bg-amber-400/10 text-amber-300',
-		purple: 'border-purple-400/30 bg-purple-400/10 text-purple-300',
-		red: 'border-rose-500/30 bg-rose-500/10 text-rose-300'
+		mint: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400',
+		gold: 'border-slate-700 bg-slate-800/80 text-slate-300',
+		purple: 'border-blue-500/30 bg-blue-500/10 text-blue-400',
+		red: 'border-rose-500/30 bg-rose-500/10 text-rose-400'
 	};
 
 	const dotColors = {
 		cyan: 'bg-[#00F0FF]',
-		mint: 'bg-[#00FF9D]',
-		gold: 'bg-amber-400',
-		purple: 'bg-purple-400',
+		mint: 'bg-emerald-400',
+		gold: 'bg-slate-400',
+		purple: 'bg-blue-400',
 		red: 'bg-rose-500'
 	};
 </script>

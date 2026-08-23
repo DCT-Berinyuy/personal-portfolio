@@ -20,18 +20,18 @@
 		<!-- Scannable Timeline Cards -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each achievements as item}
-				<div class="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-[#1F293D] bg-[#121826] p-6 transition-all duration-300 hover:border-amber-400/40 hover:bg-[#161F33]">
+				<div class="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-[#1F293D] bg-[#121826] p-6 transition-all duration-300 hover:border-[#00F0FF]/40 hover:bg-[#161F33]">
 					<div class="scanline absolute inset-0 opacity-10 pointer-events-none"></div>
 
 					<div class="space-y-3">
 						<div class="flex items-center justify-between">
 							{#if item.badge}
-								<SecurityBadge label={item.badge} variant={item.category === 'ctf' ? 'red' : item.category === 'hackathon' ? 'gold' : 'cyan'} size="sm" />
+								<SecurityBadge label={item.badge} variant={item.category === 'ctf' ? 'red' : 'cyan'} size="sm" />
 							{/if}
 							<span class="font-mono text-xs text-slate-400">{item.period}</span>
 						</div>
 
-						<h3 class="text-lg font-bold text-white font-sans group-hover:text-amber-300 transition-colors">
+						<h3 class="text-lg font-bold text-white font-sans group-hover:text-[#00F0FF] transition-colors">
 							{item.title}
 						</h3>
 

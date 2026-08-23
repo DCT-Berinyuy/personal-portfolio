@@ -12,9 +12,9 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<!-- Section Title -->
 		<div class="flex flex-col items-start mb-12">
-			<SecurityBadge label="OPEN SOURCE & HACKATHON BUILDS" variant="mint" size="sm" />
+			<SecurityBadge label="OPEN SOURCE & HACKATHON BUILDS" variant="cyan" size="sm" />
 			<h2 class="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl font-sans">
-				Secondary <span class="text-[#00FF9D]">Engineering Projects</span>
+				Secondary <span class="text-[#00F0FF]">Engineering Projects</span>
 			</h2>
 			<p class="mt-1 text-xs font-mono text-slate-400">
 				Specialized utilities, open-source Linux tools, and hackathon-winning applications.
@@ -24,11 +24,11 @@
 		<!-- 2x2 Grid -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			{#each secondary as item}
-				<div class="group flex flex-col justify-between rounded-xl border border-[#1F293D] bg-[#0E1424] p-6 transition-all duration-300 hover:border-[#00FF9D]/40">
+				<div class="group flex flex-col justify-between rounded-xl border border-[#1F293D] bg-[#0E1424] p-6 transition-all duration-300 hover:border-[#00F0FF]/40">
 					<div class="space-y-4">
 						<!-- Header -->
 						<div class="flex items-center justify-between">
-							<h3 class="text-xl font-bold text-white font-sans group-hover:text-[#00FF9D]">
+							<h3 class="text-xl font-bold text-white font-sans group-hover:text-[#00F0FF]">
 								{item.title}
 							</h3>
 							{#if item.githubUrl}

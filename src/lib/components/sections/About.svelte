@@ -70,11 +70,11 @@
 					</div>
 					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Startup Role:</span>
-						<span class="text-[#00FF9D]">Founder & CEO @ DevSafe</span>
+						<span class="text-[#00F0FF] font-semibold">Founder & CEO @ DevSafe</span>
 					</div>
 					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Academic Major:</span>
-						<span class="text-amber-300">B.Sc. Cybersecurity</span>
+						<span class="text-slate-200">B.Sc. Cybersecurity</span>
 					</div>
 					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">University:</span>

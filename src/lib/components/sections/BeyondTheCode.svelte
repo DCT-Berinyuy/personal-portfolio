@@ -12,7 +12,7 @@
 		<div class="flex flex-col items-start mb-10">
 			<SecurityBadge label="BEYOND THE CODE • CONTENT & AUTHORSHIP" variant="purple" size="sm" />
 			<h2 class="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl font-sans">
-				Beyond the Code <span class="text-purple-400">& Mindset</span>
+				Beyond the Code <span class="text-[#00F0FF]">& Mindset</span>
 			</h2>
 			<p class="mt-1 text-xs font-mono text-slate-400">
 				Content creation, computer science education, and personal authorship.
@@ -22,10 +22,10 @@
 		<!-- Grid Cards -->
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			{#each beyondItems as item}
-				<div class="group flex flex-col justify-between rounded-xl border border-[#1F293D] bg-[#0E1424] p-6 transition-all duration-300 hover:border-purple-400/40">
+				<div class="group flex flex-col justify-between rounded-xl border border-[#1F293D] bg-[#0E1424] p-6 transition-all duration-300 hover:border-[#00F0FF]/40">
 					<div class="space-y-4">
 						<div class="flex items-center justify-between">
-							<div class="flex items-center gap-2 text-purple-400">
+							<div class="flex items-center gap-2 text-[#00F0FF]">
 								{#if item.type === 'youtube'}
 									<SocialIcon name="youtube" class="h-5 w-5" />
 								{:else if item.type === 'tiktok'}
@@ -36,13 +36,13 @@
 								<span class="font-mono text-xs font-bold uppercase">{item.platform}</span>
 							</div>
 							{#if item.metric}
-								<span class="rounded bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 font-mono text-[11px] text-purple-300">
+								<span class="rounded bg-[#00F0FF]/10 border border-[#00F0FF]/30 px-2 py-0.5 font-mono text-[11px] text-[#00F0FF]">
 									{item.metric}
 								</span>
 							{/if}
 						</div>
 
-						<h3 class="text-xl font-bold text-white font-sans group-hover:text-purple-300">
+						<h3 class="text-xl font-bold text-white font-sans group-hover:text-[#00F0FF]">
 							{item.title}
 						</h3>
 
