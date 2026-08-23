@@ -3,7 +3,7 @@
 	import SecurityBadge from '$lib/components/ui/SecurityBadge.svelte';
 	import CopyButton from '$lib/components/ui/CopyButton.svelte';
 	import SocialIcon from '$lib/components/ui/SocialIcon.svelte';
-	import { Mail, Send, CheckCircle2, MessageSquare } from 'lucide-svelte';
+	import { Mail, Send, CheckCircle2, AlertCircle, MessageSquare } from 'lucide-svelte';
 
 	let formName = $state('');
 	let formEmail = $state('');
@@ -11,26 +11,52 @@
 	let formMessage = $state('');
 	let isSubmitting = $state(false);
 	let isSubmitted = $state(false);
+	let errorMessage = $state('');
 
 	async function handleSubmit(e: Event) {
 		e.preventDefault();
 		if (!formName || !formEmail || !formMessage) return;
 
 		isSubmitting = true;
+		errorMessage = '';
 
-		// Simulate API call handler
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		try {
+			const response = await fetch('https://api.web3forms.com/submit', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json'
+				},
+				body: JSON.stringify({
+					access_key: '71139355-045b-431d-aa43-931b1b206028',
+					name: formName,
+					email: formEmail,
+					subject: formSubject || `New Portfolio Message from ${formName}`,
+					message: formMessage,
+					from_name: 'Mr. DCT Portfolio'
+				})
+			});
 
-		isSubmitting = false;
-		isSubmitted = true;
-		formName = '';
-		formEmail = '';
-		formSubject = '';
-		formMessage = '';
+			const data = await response.json();
 
-		setTimeout(() => {
-			isSubmitted = false;
-		}, 5000);
+			if (data.success) {
+				isSubmitted = true;
+				formName = '';
+				formEmail = '';
+				formSubject = '';
+				formMessage = '';
+
+				setTimeout(() => {
+					isSubmitted = false;
+				}, 6000);
+			} else {
+				errorMessage = data.message || 'Submission failed. Please try again or email directly.';
+			}
+		} catch (err) {
+			errorMessage = 'Network error during submission. Please reach out directly via email.';
+		} finally {
+			isSubmitting = false;
+		}
 	}
 </script>
 
@@ -107,6 +133,13 @@
 				</h3>
 
 				<div aria-live="polite" aria-atomic="true">
+					{#if errorMessage}
+						<div class="mb-4 flex items-center gap-3 rounded-xl border border-rose-500/40 bg-rose-500/10 p-4 text-xs font-mono text-rose-300">
+							<AlertCircle class="h-5 w-5 flex-shrink-0" />
+							<span>{errorMessage}</span>
+						</div>
+					{/if}
+
 					{#if isSubmitted}
 						<div class="flex items-center gap-3 rounded-xl border border-[#00FF9D]/40 bg-[#00FF9D]/10 p-4 text-xs font-mono text-[#00FF9D]">
 							<CheckCircle2 class="h-5 w-5 flex-shrink-0" />
@@ -119,6 +152,7 @@
 									<label for="contact-name" class="block font-mono text-xs text-slate-200 font-medium mb-1">Your Name *</label>
 									<input
 										id="contact-name"
+										name="name"
 										type="text"
 										required
 										bind:value={formName}
@@ -131,6 +165,7 @@
 									<label for="contact-email" class="block font-mono text-xs text-slate-200 font-medium mb-1">Your Email *</label>
 									<input
 										id="contact-email"
+										name="email"
 										type="email"
 										required
 										bind:value={formEmail}
@@ -144,6 +179,7 @@
 								<label for="contact-subject" class="block font-mono text-xs text-slate-200 font-medium mb-1">Subject</label>
 								<input
 									id="contact-subject"
+									name="subject"
 									type="text"
 									bind:value={formSubject}
 									placeholder="Project Inquiry / Hackathon / Security Audit"
@@ -155,6 +191,7 @@
 								<label for="contact-message" class="block font-mono text-xs text-slate-200 font-medium mb-1">Message *</label>
 								<textarea
 									id="contact-message"
+									name="message"
 									rows="5"
 									required
 									bind:value={formMessage}
