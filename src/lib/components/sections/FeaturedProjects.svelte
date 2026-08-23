@@ -36,13 +36,13 @@
 			</div>
 
 			<!-- Filter Tabs -->
-			<div role="tablist" aria-label="Filter projects by category" class="flex flex-wrap items-center gap-2 rounded-xl border border-[#1F293D] bg-[#0E1424] p-1.5 font-mono text-xs">
+			<div role="tablist" aria-label="Filter projects by category" class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar rounded-xl border border-[#1F293D] bg-[#0E1424] p-1.5 font-mono text-xs w-full md:w-auto max-w-full whitespace-nowrap">
 				<button
 					type="button"
 					role="tab"
 					aria-selected={activeFilter === 'all'}
 					onclick={() => (activeFilter = 'all')}
-					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'all' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+					class="flex-shrink-0 rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'all' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
 				>
 					All Builds ({projects.length})
 				</button>
@@ -51,7 +51,7 @@
 					role="tab"
 					aria-selected={activeFilter === 'flagship'}
 					onclick={() => (activeFilter = 'flagship')}
-					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'flagship' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+					class="flex-shrink-0 rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'flagship' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
 				>
 					DevSafe Flagships
 				</button>
@@ -60,7 +60,7 @@
 					role="tab"
 					aria-selected={activeFilter === 'security'}
 					onclick={() => (activeFilter = 'security')}
-					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'security' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+					class="flex-shrink-0 rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'security' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
 				>
 					Security & Systems
 				</button>
@@ -69,7 +69,7 @@
 					role="tab"
 					aria-selected={activeFilter === 'mobile'}
 					onclick={() => (activeFilter = 'mobile')}
-					class="rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'mobile' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
+					class="flex-shrink-0 rounded-lg px-3 py-2 font-bold transition-colors {activeFilter === 'mobile' ? 'bg-[#00F0FF] text-black shadow-md' : 'text-slate-300 hover:text-white hover:bg-[#161F33]'}"
 				>
 					Mobile & Web
 				</button>

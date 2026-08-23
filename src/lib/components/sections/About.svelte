@@ -60,27 +60,27 @@
 				</h3>
 
 				<div class="space-y-3 font-mono text-xs">
-					<div class="flex justify-between border-b border-[#1F293D]/60 pb-2">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Legal Name:</span>
 						<span class="text-white font-semibold">{profile.name}</span>
 					</div>
-					<div class="flex justify-between border-b border-[#1F293D]/60 pb-2">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Handle / Brand:</span>
 						<span class="text-[#00F0FF]">{profile.handle}</span>
 					</div>
-					<div class="flex justify-between border-b border-[#1F293D]/60 pb-2">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Startup Role:</span>
 						<span class="text-[#00FF9D]">Founder & CEO @ DevSafe</span>
 					</div>
-					<div class="flex justify-between border-b border-[#1F293D]/60 pb-2">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">Academic Major:</span>
 						<span class="text-amber-300">B.Sc. Cybersecurity</span>
 					</div>
-					<div class="flex justify-between border-b border-[#1F293D]/60 pb-2">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[#1F293D]/60 pb-2">
 						<span class="text-slate-400">University:</span>
 						<span class="text-slate-200">ICT University Yaoundé</span>
 					</div>
-					<div class="flex justify-between pb-1">
+					<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1">
 						<span class="text-slate-400">Origin / Base:</span>
 						<span class="text-slate-200">Bamenda / Yaoundé, CM</span>
 					</div>

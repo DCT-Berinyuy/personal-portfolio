@@ -6,6 +6,14 @@
     --font-sans: 'Outfit', sans-serif;
   }
 
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -26,6 +34,15 @@
   --color-dark-border: #1F293D;
   --font-mono: 'JetBrains Mono', monospace;
   --font-sans: 'Outfit', sans-serif;
+}
+
+/* Hide scrollbars for touch/swipe containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Custom Scrollbar */
@@ -92,4 +109,5 @@
 .sr-skip-link:focus {
   top: 1rem;
 }
+
 

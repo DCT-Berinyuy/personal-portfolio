@@ -72,15 +72,15 @@
 			</div>
 
 			<!-- Terminal Graphic Card / Hero Visual -->
-			<div class="lg:col-span-5">
-				<div class="relative overflow-hidden rounded-2xl border border-[#00F0FF]/40 bg-[#0B0F19] p-6 shadow-2xl glow-cyan">
+			<div class="lg:col-span-5 w-full">
+				<div class="relative overflow-hidden rounded-2xl border border-[#00F0FF]/40 bg-[#0B0F19] p-4 sm:p-6 shadow-2xl glow-cyan w-full">
 					<div class="scanline absolute inset-0 opacity-30 pointer-events-none"></div>
 
 					<!-- Card Header -->
 					<div class="flex items-center justify-between border-b border-[#1F293D] pb-3 font-mono text-xs text-slate-400">
 						<div class="flex items-center gap-2 text-[#00F0FF]">
 							<Terminal class="h-4 w-4" />
-							<span>SYSTEM_CORE_INFO</span>
+							<span class="text-[11px] sm:text-xs">SYSTEM_CORE_INFO</span>
 						</div>
 						<div class="flex items-center gap-1.5 text-xs text-[#00FF9D]">
 							<span class="h-2 w-2 rounded-full bg-[#00FF9D] animate-pulse"></span>
@@ -89,8 +89,8 @@
 					</div>
 
 					<!-- Card Content -->
-					<div class="mt-4 space-y-3 font-mono text-xs">
-						<div>
+					<div class="mt-4 space-y-3 font-mono text-xs overflow-x-auto no-scrollbar">
+						<div class="whitespace-nowrap sm:whitespace-normal">
 							<span class="text-slate-500">const</span> <span class="text-[#00F0FF]">founder</span> = &#123;<br />
 							&nbsp;&nbsp;<span class="text-slate-400">name:</span> <span class="text-[#00FF9D]">"{profile.name}"</span>,<br />
 							&nbsp;&nbsp;<span class="text-slate-400">entity:</span> <span class="text-amber-300">"DevSafe (Student Startup)"</span>,<br />
@@ -112,7 +112,7 @@
 		</div>
 
 		<!-- Hero Stats Strip -->
-		<div class="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
+		<div class="mt-12 sm:mt-16 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
 			{#each profile.heroStats as stat}
 				<StatCard label={stat.label} value={stat.value} subtext={stat.subtext} />
 			{/each}
